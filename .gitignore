@@ -6,9 +6,6 @@ output-*/
 # Log file
 *.log
 
-# jupyter files
-*.ipynb
-
 # BlueJ files
 *.ctxt
 
