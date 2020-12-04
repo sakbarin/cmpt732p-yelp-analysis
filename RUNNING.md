@@ -5,14 +5,14 @@
 ## Create virtual environment
 conda create --name yelp_analysis_env
 
+conda activate yelp_analysis_env
+
 ## Install libraries
 pip install google-cloud-storage
 
 ## Download Google Cloud Storage (GCS) connector 
-Download Google Storage connector for your Hadoop/Spark version from the following link: <br/>
+Download Cloud Storage connector for Hadoop from the following link to /path/spark/jars: <br/>
 https://cloud.google.com/dataproc/docs/concepts/connectors/cloud-storage <br/>
-
-Copy and paste the downloaded file to /path/spark/jars <br/>
 
 # Run:
 spark-submit main.py <gc-credential-file> <bucket-name> <bigquery-dataset-name> <br/>
