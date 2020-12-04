@@ -1,16 +1,10 @@
-# datasets folder
-dataset/*
-instructions/*
-output-*/
+# Google Application Credentials
+/ETL/*.json
 
+# Cache files and folders
+*/__pycache__/*
 # Log file
 *.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
 
 # Package Files #
 *.jar
