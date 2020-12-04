@@ -1,8 +1,25 @@
-# A Deeper Analysis of Restaurants using Yelp Dataset
+# An Insightful Analysis of YELP Dataset
 
-# Requirements to run python files:
+# Requirements:
 
-## Install required libraries
+## Create virtual environment
+conda create --name yelp_analysis_env
+
+## Install libraries
+pip install google-cloud-storage
+
+## Download Google Cloud Storage (GCS) connector 
+Download Google Storage connector for your Hadoop/Spark version from the following link: <br/>
+https://cloud.google.com/dataproc/docs/concepts/connectors/cloud-storage <br/>
+
+Copy and paste the downloaded file to /path/spark/jars <br/>
+
+# Run:
+spark-submit main.py <gc-credential-file> <bucket-name> <bigquery-dataset-name> <br/>
+spark-submit main.py yelp-data-analysis-fcca66c851f1.json sa-yelp-dataset yelp_dataset
+
+
+
 pip install matplotlib --user <br/>
 pip install wordcloud --user <br/>
 pip install nltk --user <br/>
