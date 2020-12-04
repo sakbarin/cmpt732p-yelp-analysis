@@ -31,11 +31,15 @@ def start_ETL(gc_credential_file, bucket_name, bucket_path, dataset_name):
 
 
     province_file = 'yelp_academic_ca_provinces.json'
-    print(f'\nStart processing {province_file}')
     province = Province(spark)
-    df_provinces = province.read_dataset_file(bucket_path, province_file)
-
+    df_provinces = province.process_file(bucket_path, province_file)
     df_provinces.show(10)
+
+    business_file = 'yelp_academic_dataset_business.json'
+    business = Business(spark)
+    (df_business_CA, df_business_CA_cat, df_business_CA_attr) = business.process_file(bucket_path, business_file)
+
+    
 
     #gc.write_to_bq(df_provinces, bucket_name, dataset_name, 'provinces')
 
