@@ -15,7 +15,7 @@ Download Cloud Storage connector for Hadoop from the following link to /path/spa
 https://cloud.google.com/dataproc/docs/concepts/connectors/cloud-storage <br/>
 
 # Run:
-spark-submit main.py <gc-credential-file> <bucket-name> <bigquery-dataset-name> <br/>
+spark-submit main.py gc-credential-file bucket-name bigquery-dataset-name <br/>
 spark-submit main.py yelp-data-analysis-fcca66c851f1.json sa-yelp-dataset yelp_dataset
 
 
