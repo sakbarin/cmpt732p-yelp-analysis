@@ -3,16 +3,28 @@
 # Requirements:
 
 ## Create virtual environment
+We first need to create a virtual environment for the project: <br/>
+```
 conda create --name yelp_analysis_env
+```
 
+Then we will activate the environment using: <br/>
+```
 conda activate yelp_analysis_env
+```
 
 ## Install libraries
+This is the time to install libraries required to use Google Cloud Platform. <br/>
+We have used YELP dataset in this project which is stored on Google Cloud Storage (GCS). <br/>
+So, we need to install google-cloud-storage library using pip to import data. <br/>
+```
 pip install google-cloud-storage
+```
 
 ## Download Google Cloud Storage (GCS) connector 
+Additionaly, Spark need Google CLoud Storage connector to read data stored on Google Cloud Storage paths starting with gs:// <br/>
 Download Cloud Storage connector for Hadoop from the following link to /path/spark/jars: <br/>
-https://cloud.google.com/dataproc/docs/concepts/connectors/cloud-storage <br/>
+[Download from this link](https://cloud.google.com/dataproc/docs/concepts/connectors/cloud-storage) <br/>
 
 # Run:
 spark-submit main.py gc-credential-file bucket-name bigquery-dataset-name <br/>
