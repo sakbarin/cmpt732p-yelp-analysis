@@ -21,10 +21,10 @@ class Business:
                     self.attributes += [sub_field['name']]
 
     @functions.udf(returnType=types.StringType())
-    def __flatten_attributes(col_data, xxx):
+    def __flatten_attributes(col_data, attribute_keys):
         output = {}
 
-        for attribute in ast.literal_eval(xxx):
+        for attribute in ast.literal_eval(attribute_keys):
             if (col_data[attribute] == None):
                 output[attribute] = None
             elif str(col_data[attribute]).startswith('{'):
