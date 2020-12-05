@@ -6,28 +6,25 @@ from pyspark.sql import functions, types
 class Business:
     def __init__(self, sparkSession):
         self.spark = sparkSession
+        self.attributes = []
         self.spark.udf.register("FLATTEN", self.__flatten_attributes)
 
-    def __get_attribute_keys(self, df_business, struct_name):
+    def __set_attribute_keys(self, df_business):
         fields = json.loads(df_business.schema.json())['fields']
 
-        attributes = []
-
         for field in fields:
-            if (field['name'] == struct_name):
+            if (field['name'] == 'ATTRIBUTES'):
 
                 sub_fields = field['type']['fields']
 
                 for sub_field in sub_fields:
-                    attributes += [sub_field['name']]
-        
-        return attributes
+                    self.attributes += [sub_field['name']]
 
     @functions.udf(returnType=types.StringType())
-    def __flatten_attributes(col_data):
+    def __flatten_attributes(col_data, xxx):
         output = {}
 
-        for attribute in attributes:
+        for attribute in ast.literal_eval(xxx):
             if (col_data[attribute] == None):
                 output[attribute] = None
             elif str(col_data[attribute]).startswith('{'):
@@ -74,7 +71,7 @@ class Business:
             (
                 SELECT
                     BUSINESS_ID,
-                    EXPLODE(SPLIT(FLATTEN(ATTRIBUTES), ',')) AS ATTRIBUTE
+                    EXPLODE(SPLIT(FLATTEN(ATTRIBUTES,"''' + str(self.attributes) + '''"), ',')) AS ATTRIBUTE
                 FROM 
                     VW_BUSINESS_CA )''')
 
@@ -113,15 +110,16 @@ class Business:
                 AND CATEGORIES IS NOT NULL
                 AND ATTRIBUTES IS NOT NULL ''').cache()
         df_business_CA.createOrReplaceTempView('VW_BUSINESS_CA')
-
-        df_business_CA_cat = self.__process_categories()
         
-        self.attributes = self.__get_attribute_keys(df_business_CA, 'ATTRIBUTES')
+        self.__set_attribute_keys(df_business_CA)
+
         df_business_CA_attr = self.__process_attributes()
 
+        df_business_CA_cat = self.__process_categories()
+
         df_business_CA_final = df_business_CA.drop('CATEGORIES', 'ATTRIBUTES')
-        self.spark.createOrReplaceTempView('VW_BUSINESS_CA_FINAL')
+        df_business_CA_final.createOrReplaceTempView('VW_BUSINESS_CA_FINAL')
 
         print("Business.process_file() finished at " + datetime.now().strftime('%d/%m/%Y %H:%M:%S'))
 
-        return (df_business_CA_final, df_business_CA_cat, df_business_CA_attr)
+        return df_business_CA_final, df_business_CA_cat, df_business_CA_attr

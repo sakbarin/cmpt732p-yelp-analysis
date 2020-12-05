@@ -21,7 +21,6 @@ spark = SparkSession.builder.appName('YELP_ETL') \
     .config('spark.jars', 'gcs-connector-hadoop2-latest.jar') \
     .getOrCreate()
 
-
 # start ETL pipeline
 def start_ETL(gc_credential_file, bucket_name, bucket_path, dataset_name):
     gc = GoogleCloud(gc_credential_file)
@@ -37,9 +36,7 @@ def start_ETL(gc_credential_file, bucket_name, bucket_path, dataset_name):
 
     business_file = 'yelp_academic_dataset_business.json'
     business = Business(spark)
-    (df_business_CA, df_business_CA_cat, df_business_CA_attr) = business.process_file(bucket_path, business_file)
-
-    
+    df_business_CA, df_business_CA_cat, df_business_CA_attr = business.process_file(bucket_path, business_file)
 
     #gc.write_to_bq(df_provinces, bucket_name, dataset_name, 'provinces')
 
