@@ -5,14 +5,18 @@ assert sys.version_info >= (3, 5) # make sure we have Python 3.5+
 
 from pyspark.sql import SparkSession, functions, types
 from google_cloud import GoogleCloud
+
+
 from business import Business
 from province import Province
+from checkin import Checkin
+from review import Review
+from user import User
 
 
 spark = SparkSession.builder.appName('YELP_ETL').getOrCreate()
 assert spark.version >= '2.4' # make sure we have Spark 2.4+
 spark.sparkContext.setLogLevel('WARN')
-
 
 
 # define global variables
@@ -38,6 +42,19 @@ def start_ETL(gc_credential_file, bucket_name, bucket_path, dataset_name):
     business = Business(spark)
     df_business_CA, df_business_CA_cat, df_business_CA_attr = business.process_file(bucket_path, business_file)
 
+    checkin_file = 'yelp_academic_dataset_checkin.json'
+    checkin = Checkin(spark)
+    df_checkin = checkin.process_file(bucket_path, checkin_file)
+
+    review_file = 'yelp_academic_dataset_review.json'
+    review = Review(spark)
+    df_review = review.process_file(bucket_path, review_file)
+
+    user_file = 'yelp_academic_dataset_user.json'
+    user = User(spark)
+    df_user, df_user_friends, df_user_elite = user.process_file(bucket_path, user_file)
+
+
     #gc.write_to_bq(df_provinces, bucket_name, dataset_name, 'provinces')
 
 
@@ -48,6 +65,8 @@ if __name__ == '__main__':
     dataset_name = sys.argv[3]
 
     bucket_path = 'gs://' + bucket_name
+
+    bucket_path = 'C:\\Users\\Shahram\\Downloads\\Compressed\\yelp_dataset\\'
 
     spark._jsc.hadoopConfiguration().set('fs.gs.impl', 'com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem')
     spark._jsc.hadoopConfiguration().set('fs.gs.auth.service.account.enable', 'ture')
