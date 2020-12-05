@@ -23,13 +23,24 @@ pip install google-cloud-storage
 
 ## Download Google Cloud Storage (GCS) connector 
 Additionaly, Spark need Google CLoud Storage connector to read data stored on Google Cloud Storage paths starting with gs:// <br/>
-Download Cloud Storage connector for Hadoop from the following link to /path/spark/jars: <br/>
+Download Cloud Storage connector for Hadoop from the following link to /path/spark/jars: <br/><br/>
 [Download from this link](https://cloud.google.com/dataproc/docs/concepts/connectors/cloud-storage) <br/>
 
 # Run:
-spark-submit main.py gc-credential-file bucket-name bigquery-dataset-name <br/>
-spark-submit main.py yelp-data-analysis-fcca66c851f1.json sa-yelp-dataset yelp_dataset
+The pipeline extracts data from Google Cloud Storage (GCS), transforms and loads it into Google BigQuery for further analysis.<br/>
+To start the process, run the following command: <br/>
+```
+spark-submit main.py <<gc-credential-file>> <<bucket-name>> <<bigquery-dataset-name>>
+```
+There are some parameters you need to set in this commands:
+- gc-credential-file: This is the JSON credential file required to connect too Google Cloud.
+- bucket-name: This is the bucket name where the dataset is stored (without gs://).
+- bigquery-dataset-name: This is the name of big query dataset where you want to load data into.
 
+An example of this command is shown here:
+```
+spark-submit main.py yelp-data-analysis-fcca66c851f1.json sa-yelp-dataset yelp_dataset
+```
 
 
 pip install matplotlib --user <br/>
