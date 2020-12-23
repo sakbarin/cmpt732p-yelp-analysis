@@ -9,13 +9,13 @@ In command line, you will enter the following command to create "CMPT732 Project
 ```
 gcloud projects create cmpt732-project --name "CMPT732 Project" 
 ```
-Next, you need to link this project with our billing account.<br/>
+Next, you need to link this project with your billing account.<br/>
 You can use the following command to retrieve your billing account ID:<br/>
 ```
 gcloud alpha billing accounts list
 ```
-Note your billing account ID somewhere.<br/>
-Use the following command link your project with your billing account ID:<br/>
+Note your billing account ID somewhere safe.<br/>
+Use the following command to link your project with your billing account ID:<br/>
 ```
 gcloud alpha billing accounts projects link cmpt732-project --billing-account <billing-account-id>
 ```
@@ -24,13 +24,14 @@ gcloud alpha billing accounts projects link cmpt732-project --billing-account <b
 In this project, we have used Google Cloud Storage (GCS) to store YELP dataset.<br/>
 Bucket "" is created for this purpose using the command that comes next:<br/>
 ```
-gsutil mb -c standard -l us -p cmpt732-project gs://cmpt732-project-dataset
+gsutil mb -c standard -l us -p cmpt732-project gs://cmpt732-project-bucket
 ```
 
 ### Create a Google Cloud DataProc cluster
 Next, we need to create DataProc cluster in order to process the dataset using PySpark.<br/>
 To do so, we will use the following command:<br/>
 ```
+gcloud dataproc clusters create cmpt732-project-cluster --region us-central1 --zone us-central1-f --optional-components=Anaconda,Jupyter --bucket cmpt732-project-bucket --temp-bucket cmpt732-project-bucket --master-machine-type n1-standard-1 --master-boot-disk-size 50 --worker-machine-type n1-standard-2 --worker-boot-disk-size 50 --num-workers 2 --project cmpt732-project
 ```
 
 ## Create virtual environment
