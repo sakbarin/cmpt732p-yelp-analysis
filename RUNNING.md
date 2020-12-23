@@ -2,6 +2,39 @@
 
 # Requirements:
 
+## Google Cloud Section
+### Create a project
+Initially, you need to create a project in Google Cloud Platform (GCP). <br/>
+In command line, you will enter the following command to create "CMPT732 Project":<br/>
+```
+gcloud projects create cmpt732-project --name "CMPT732 Project" 
+```
+<br/>
+Next, you need to link this project with our billing account.<br/>
+You can use the following command to retrieve your billing account ID:<br/>
+```
+gcloud alpha billing accounts list
+```
+<br/>
+Note your billing account ID somewhere.<br/>
+Use the following command link your project with your billing account ID:<br/>
+```
+gcloud alpha billing accounts projects link cmpt732-project --billing-account <billing-account-id>
+```
+
+### Create a Google Cloud Storage bucket 
+In this project, we have used Google Cloud Storage (GCS) to store YELP dataset.<br/>
+Bucket "" is created for this purpose using the command that comes next:<br/>
+```
+gsutil mb -c standard -l us -p cmpt732-project gs://cmpt732-project-dataset
+```
+
+### Create a Google Cloud DataProc cluster
+Next, we need to create DataProc cluster in order to process the dataset using PySpark.<br/>
+To do so, we will use the following command:<br/>
+```
+```
+
 ## Create virtual environment
 We first need to create a virtual environment for the project: <br/>
 ```
