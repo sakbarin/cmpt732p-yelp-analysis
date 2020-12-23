@@ -9,13 +9,11 @@ In command line, you will enter the following command to create "CMPT732 Project
 ```
 gcloud projects create cmpt732-project --name "CMPT732 Project" 
 ```
-<br/>
 Next, you need to link this project with our billing account.<br/>
 You can use the following command to retrieve your billing account ID:<br/>
 ```
 gcloud alpha billing accounts list
 ```
-<br/>
 Note your billing account ID somewhere.<br/>
 Use the following command link your project with your billing account ID:<br/>
 ```
