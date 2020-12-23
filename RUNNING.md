@@ -26,6 +26,10 @@ Bucket "" is created for this purpose using the command that comes next:<br/>
 ```
 gsutil mb -c standard -l us -p cmpt732-project gs://cmpt732-project-bucket
 ```
+Copy YELP dataset from our bucket to your project bucket:
+```
+gsutil cp gs://sa-yelp-dataset/*.json gs://cmpt732-project-bucket
+```
 
 ### Create a Google Cloud DataProc cluster
 Next, we need to create DataProc cluster in order to process the dataset using PySpark.<br/>
