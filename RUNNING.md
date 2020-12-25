@@ -35,7 +35,7 @@ gsutil cp gs://sa-yelp-dataset/*.json gs://cmpt732-project-bucket
 Next, we need to create DataProc cluster in order to process the dataset using PySpark.<br/>
 To do so, we will use the following command:<br/>
 ```
-gcloud dataproc clusters create cmpt732-project-cluster --region us-central1 --zone us-central1-f --image-version 1.5 --optional-components=Anaconda,Jupyter --bucket cmpt732-project-bucket --temp-bucket cmpt732-project-bucket --master-machine-type n1-standard-2 --master-boot-disk-size 50 --worker-machine-type n1-standard-4 --worker-boot-disk-size 50 --num-workers 2 --enable-component-gateway --project cmpt732-project
+gcloud dataproc clusters create cmpt732-project-cluster --region us-central1 --zone us-central1-f --image-version 1.5 --optional-components=Anaconda,Jupyter --bucket cmpt732-project-bucket --temp-bucket cmpt732-project-bucket --master-machine-type n1-standard-4 --master-boot-disk-size 50 --worker-machine-type n1-standard-8 --worker-boot-disk-size 50 --num-workers 2 --enable-component-gateway --project cmpt732-project
 ```
 
 ### Create a Google Cloud BigQuery dataset
