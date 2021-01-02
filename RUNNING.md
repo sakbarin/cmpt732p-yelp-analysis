@@ -47,5 +47,5 @@ bq mk cmpt732-project:yelp_dataset
 ### Submit PySpark job to DataProc
 Now this is the time to submit the PySpark job to DataProc to extract, transform, and load (ETL) dataset into BigQuery.
 ```
-gcloud dataproc jobs submit pyspark main.py --project=cmpt732-project --cluster=cmpt732-project-cluster --region=us-central1 --jars=gs://spark-lib/bigquery/spark-bigquery-latest_2.12.jar -- cmpt732-project-bucket yelp_dataset
+gcloud dataproc jobs submit pyspark main.py --project=cmpt732-project --cluster=cmpt732-project-cluster --region=us-central1 --jars=gs://spark-lib/bigquery/spark-bigquery-latest_2.12.jar --py-files=baseclass.py,province.py,business.py,checkin.py,review.py,user.py -- cmpt732-project-bucket yelp_dataset
 ```
