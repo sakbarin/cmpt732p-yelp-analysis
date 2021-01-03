@@ -23,6 +23,8 @@ class BaseClass:
             :param tbl_name: target table name in BigQuery
             :return: None
         """
+        print(f"Started writing {ds_name}:{tbl_name} to BigQuery.")
+
         df.write.format('bigquery') \
                 .option('table', f'{ds_name}.{tbl_name}') \
                 .option("temporaryGcsBucket", temp_bucket_name) \
